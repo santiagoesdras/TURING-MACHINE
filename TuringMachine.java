@@ -30,10 +30,10 @@ public class TuringMachine {
                 if (estadoActual.equals("q0")) {
                     if (actual == '0') { cabeza++; estadoActual = "q1"; }
                     else if (actual == '_') { estadoActual = "qf"; aceptada = true; }
-                    else estadoActual = "qr";
+                    else { estadoActual = "qr"; aceptada = false; }
                 } else if (estadoActual.equals("q1")) {
                     if (actual == '1') { cabeza++; estadoActual = "q0"; }
-                    else estadoActual = "qr";
+                    else { estadoActual = "qr"; aceptada = false; }
                 }
                 break;
 
@@ -42,10 +42,11 @@ public class TuringMachine {
                 if (estadoActual.equals("q0")) {
                     if (actual == '1') cabeza++;
                     else if (actual == '0') { cabeza++; estadoActual = "q1"; }
-                    else estadoActual = "qr";
+                    else { estadoActual = "qr"; aceptada = false; }
                 } else if (estadoActual.equals("q1")) {
                     if (actual == '0') cabeza++;
                     else if (actual == '1' || actual == '_') { estadoActual = "qf"; aceptada = true; }
+                    else { estadoActual = "qr"; aceptada = false; }
                 }
                 break;
 
@@ -55,10 +56,11 @@ public class TuringMachine {
                     if (actual == 'a') cabeza++;
                     else if (actual == 'b') estadoActual = "q1";
                     else if (actual == '_') { estadoActual = "qf"; aceptada = true; }
+                    else { estadoActual = "qr"; aceptada = false; }
                 } else if (estadoActual.equals("q1")) {
                     if (actual == 'b') cabeza++;
                     else if (actual == '_') { estadoActual = "qf"; aceptada = true; }
-                    else estadoActual = "qr";
+                    else { estadoActual = "qr"; aceptada = false; }
                 }
                 break;
 
@@ -67,11 +69,12 @@ public class TuringMachine {
                 if (estadoActual.equals("q0")) {
                     if (actual == 'a' || actual == 'b') cabeza++;
                     else if (actual == '_') { cabeza--; estadoActual = "q1"; }
+                    else { estadoActual = "qr"; aceptada = false; }
                 } else if (estadoActual.equals("q1")) {
                     if (cinta[cabeza] == 'a' && cinta[cabeza - 1] == 'b') {
                         estadoActual = "qf";
                         aceptada = true;
-                    } else estadoActual = "qr";
+                    } else { estadoActual = "qr"; aceptada = false; }
                 }
                 break;
 
@@ -80,13 +83,16 @@ public class TuringMachine {
                 if (estadoActual.equals("q0")) {
                     if (actual == '1') { cabeza++; estadoActual = "q1"; }
                     else if (actual == '0') cabeza++;
-                    else if (actual == '_') estadoActual = "qr";
+                    else if (actual == '_') { estadoActual = "qr"; aceptada = false; }
                 } else if (estadoActual.equals("q1")) {
                     if (actual == '1') { estadoActual = "qf"; aceptada = true; }
                     else if (actual == '0') { estadoActual = "q0"; cabeza++; }
+                    else { estadoActual = "qr"; aceptada = false; }
                 }
                 break;
         }
+
+        if (estadoActual.equals("qr")) aceptada = false;
 
         return estadoActual.equals("qf") || estadoActual.equals("qr");
     }

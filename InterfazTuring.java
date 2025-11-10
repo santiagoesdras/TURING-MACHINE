@@ -1,6 +1,5 @@
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import javax.swing.*;
 
 public class InterfazTuring extends JFrame {
     private JComboBox<String> expresionesCombo;
@@ -140,7 +139,7 @@ public class InterfazTuring extends JFrame {
     private void iniciar() {
         String entrada = entradaField.getText().trim();
         if (entrada.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe ingresa una cadena");
+            JOptionPane.showMessageDialog(this, "Debe ingresar una cadena");
             return;
         }
 
@@ -163,8 +162,12 @@ public class InterfazTuring extends JFrame {
     private void auto() {
         if (maquina == null) return;
         timer = new Timer(600, e -> {
-            if (!maquina.finalizada()) paso();
-            else ((Timer) e.getSource()).stop();
+            if (!maquina.finalizada()) {
+                paso();
+            } else {
+                ((Timer) e.getSource()).stop();
+                mostrarResultado(); 
+            }
         });
         timer.start();
     }
